@@ -1,0 +1,9 @@
+langchain 
+langchain-google-vertexai 
+google-cloud-aiplatform
+langgraph
+ipykernel
+pandas
+numpy
+openpyxl
+opensearch-py
