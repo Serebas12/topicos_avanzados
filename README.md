@@ -3,7 +3,7 @@
 sudo sysctl -w vm.max_map_count=262144
 
 # despliegue contenedor 
-docker-compose -f docker-compose-opensearch.yaml up -d --build
+docker-compose -f docker-compose.yaml up -d --build
 
 # creación del index 
 curl -X PUT "https://localhost:9200/topicosindex" \

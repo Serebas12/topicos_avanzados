@@ -53,7 +53,7 @@ class OpenSearchSearcher:
 
         # Inicializa cliente OpenSearch
         self.client = OpenSearch(
-            hosts=[{"host": "localhost", "port": 9200}],
+            hosts=[{"host": "opensearch", "port": 9200}],
             http_auth=("admin", "Nagato123!"),
             use_ssl=True,
             verify_certs=False

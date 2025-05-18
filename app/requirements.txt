@@ -11,7 +11,7 @@ opensearch-py
 langfuse
 fastapi
 uvicorn
-
+streamlit
 
 
 
