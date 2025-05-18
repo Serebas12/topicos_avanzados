@@ -14,7 +14,7 @@ from langchain.schema import SystemMessage, HumanMessage
 class GraphNodes:
     def __init__(self, project_id: str):
         self.searcher = OpenSearchSearcher(project_id)
-        self.llm = VertexAILLM().get_model()
+        self.llm = VertexAILLM(project=project_id).get_model()
 
     def search_node(self, state: GraphState) -> GraphState:
         question = state["question"]

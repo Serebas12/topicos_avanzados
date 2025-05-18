@@ -8,3 +8,11 @@ pandas
 numpy
 openpyxl
 opensearch-py
+langfuse
+fastapi
+uvicorn
+
+
+
+
+

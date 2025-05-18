@@ -13,10 +13,10 @@ from google.cloud import aiplatform
 class VertexAILLM:
     def __init__(
         self,
+        project: str,
         model_name: str = "gemini-2.5-flash-preview-04-17",
         temperature: float = 0.5,
         max_output_tokens: int = 500,
-        project: str = "maestria-ia-puj",
         location: str = "global"
     ):
         self.model_name = model_name

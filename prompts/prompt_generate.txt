@@ -1,0 +1,5 @@
+debes responder la pregunta del usuario 
+{query}
+
+teniendo en cuenta el siguiente contexto
+{context}

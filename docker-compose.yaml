@@ -35,6 +35,20 @@ services:
       networks:
         - opensearch-net
 
+  ia-assistant:
+    build:
+      context: .
+      dockerfile: app/Dockerfile
+    container_name: ia-assistant
+    ports:
+      - "8000:8000"
+    depends_on:
+      - opensearch
+    networks:
+      - opensearch-net
+    volumes:
+      - ./prompts:/prompts
+
 volumes:
   opensearch-data:
 
