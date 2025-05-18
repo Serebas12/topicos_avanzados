@@ -1,5 +1,6 @@
 langchain 
 langchain-google-vertexai 
+langchain-core
 google-cloud-aiplatform
 langgraph
 ipykernel
