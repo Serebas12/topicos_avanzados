@@ -3,6 +3,7 @@
 import streamlit as st
 import requests
 import uuid
+from langchain.schema import HumanMessage, AIMessage
 
 # -----------------------------
 # Configuración inicial
@@ -32,12 +33,8 @@ if st.button("🗑️ Borrar conversación"):
 # -----------------------------
 for i, msg in enumerate(st.session_state.messages):
     alignment = "user" if i % 2 == 0 else "assistant"
-    if alignment == "user":
-        with st.chat_message("user"):
-            st.markdown(msg)
-    else:
-        with st.chat_message("assistant"):
-            st.markdown(msg)
+    with st.chat_message(alignment):
+        st.markdown(msg)
 
 # -----------------------------
 # Entrada inferior de texto
@@ -48,10 +45,22 @@ if prompt := st.chat_input("Escribe tu mensaje..."):
     with st.chat_message("user"):
         st.markdown(prompt)
 
-    # Llamar al backend
+    # ✅ Construir historial como objetos LangChain
+    chat_history = []
+    for i, msg in enumerate(st.session_state.messages[:-1]):  # Excluye el último (prompt actual)
+        if i % 2 == 0:
+            chat_history.append(HumanMessage(content=msg))
+        else:
+            chat_history.append(AIMessage(content=msg))
+
+    # Enviar historial como JSON serializable
     response = requests.post(
         "http://localhost:8000/ask",
-        json={"question": prompt}
+        json={
+            "question": prompt,
+            "session_id": st.session_state.session_id,
+            "history": [m.dict() for m in chat_history]
+        }
     )
 
     # Mostrar respuesta del asistente
@@ -62,4 +71,3 @@ if prompt := st.chat_input("Escribe tu mensaje..."):
             st.markdown(answer)
     else:
         st.error("❌ Error en el servidor")
-
