@@ -139,7 +139,7 @@ Una vez generado el archivo `bulk_embeddings.json`, puedes cargarlo directamente
 curl -X POST "https://localhost:9200/topicosindex/_bulk" \
   -u admin:Nagato123! \
   -H "Content-Type: application/json" \
-  --data-binary @bulk_embeddings.json \
+  --data-binary @embedding_manual.json \
   -k
 ```
 
