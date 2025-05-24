@@ -15,8 +15,8 @@ class VertexAILLM:
         self,
         project: str,
         model_name: str = "gemini-2.5-flash-preview-04-17",
-        temperature: float = 0.5,
-        max_output_tokens: int = 500,
+        temperature: float = 0,
+        max_output_tokens: int = 4000,
         location: str = "global"
     ):
         self.model_name = model_name
@@ -43,7 +43,7 @@ class VertexAILLM:
 # Clase para buscar documentos en OpenSearch
 # -------------------------------
 class OpenSearchSearcher:
-    def __init__(self, project_id: str, index_name: str = "topicosindex", top_k: int = 3):
+    def __init__(self, project_id: str, index_name: str = "topicosindex", top_k: int = 5):
         self.index_name = index_name
         self.top_k = top_k
 
@@ -85,10 +85,7 @@ class OpenSearchSearcher:
             doc = Document(
                 page_content=hit["_source"]["text"],
                 metadata={
-                    "titulo": hit["_source"]["metadata"]["title"],
-                    "departamento": hit["_source"]["metadata"]["keyword"],
-                    "id_documento": hit["_source"]["metadata"]["id_documento"],
-                    "score": hit["_score"]
+                    "pagina": hit["_source"]["metadata"]["filename"]
                 }
             )
             documentos.append(doc)
