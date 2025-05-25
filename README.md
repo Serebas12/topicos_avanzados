@@ -222,3 +222,10 @@ streamlit run app.py
 - OpenSearch correctamente configurado localmente
 
 ---
+
+## Exponer ngrok 
+
+```bash
+ngrok http --url=correct-bengal-whole.ngrok-free.app 8501
+```
+

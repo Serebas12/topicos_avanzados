@@ -14,7 +14,7 @@ class VertexAILLM:
     def __init__(
         self,
         project: str,
-        model_name: str = "gemini-2.5-flash-preview-04-17",
+        model_name: str = "gemini-2.5-pro-preview-05-06",
         temperature: float = 0,
         max_output_tokens: int = 4000,
         location: str = "global"

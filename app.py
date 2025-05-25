@@ -8,8 +8,8 @@ from langchain.schema import HumanMessage, AIMessage
 # -----------------------------
 # Configuración inicial
 # -----------------------------
-st.set_page_config(page_title="Chatea con nuestro asesor interno", layout="wide")
-st.title("💬 Chatea con nuestro asesor interno")
+st.set_page_config(page_title="topicos avanzados", layout="wide")
+st.title("💬 Asistente Reglamento de Estudiantes PUJ")
 
 # -----------------------------
 # Inicializar sesión

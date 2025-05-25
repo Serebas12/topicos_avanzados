@@ -16,4 +16,5 @@ langchain_google_genai
 matplotlib
 pdf2image
 tqdm
-
+ngrok
+pyngrok
