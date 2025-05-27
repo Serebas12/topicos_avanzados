@@ -1,3 +1,52 @@
+# Proyecto Tópicos avanzados en IA
+
+Este proyecto implementa un **asistente de inteligencia artificial** cuyo propósito es facilitar a los estudiantes de la **Pontificia Universidad Javeriana** la consulta ágil y precisa del **Reglamento Estudiantil**.  
+
+La solución se diseñó y desplegó **íntegramente en Google Cloud Platform (GCP)**, aprovechando los servicios incluidos en la capa gratuita. Para habilitar respuestas contextuales, se construyó una **base de conocimiento** donde **cada página del reglamento** se trata como un documento independiente. Esa granularidad permite aplicar la técnica de **Retrieval-Augmented Generation (RAG)**, garantizando que el asistente recupere los fragmentos relevantes del reglamento y genere respuestas fundamentadas en el texto oficial. Adicionalmente, para el desarrollo del proyecto se utilizo la siguiente arquitectura:
+
+
+<div align="center">
+  <img src="images/arquitectura_poc.png" alt="streamlit" width="700"/>
+</div>
+
+
+| # | Componente | Descripción |
+|---|------------|-------------|
+| 1 | **Generación de embeddings** | 1. El PDF del Reglamento se **divide por páginas** y cada página se transforma a imagen.<br>2. Sobre cada imagen se ejecuta **Gemini 2.5 Flash (multimodal)** para extraer el texto con alta fidelidad.<br>3. El texto se normaliza y se genera la representación vectorial con el modelo **`text-multilingual-embedding-002`** de Vertex AI (768 dim).<br>4. Todo el proceso se orquesta desde un **Notebook** alojado en la misma VM y al final se produce un archivo `bulk_embeddings.json`. |
+| 2 | **Base de conocimiento (OpenSearch)** | - Se despliega **OpenSearch** en un contenedor dentro de la VM.<br>- Se crea el índice `topicosindex` con soporte **KNN** y dimensión **768**.<br>- El archivo `bulk_embeddings.json` se carga vía API `_bulk`, quedando cada página del reglamento como un documento con su vector. |
+| 3 | **Asistente (LangChain + LangGraph + FastAPI)** | - Implementado con **LangGraph**: dos nodos.<br>  • `search_node` → recupera los `k` documentos más relevantes desde OpenSearch.<br>  • `generate_node` → construye el mensaje de sistema y llama a **Gemini 2.5 Pro** para redactar la respuesta.<br>- Se eligió Gemini 2.5 Pro porque está en *preview* (sin coste) y ofrece mayor capacidad de razonamiento.<br>- El grafo se expone a través de un **backend FastAPI** (endpoint `POST /ask`).<br>- Todo el stack (FastAPI, OpenSearch y Dashboards) se **orquesta mediante `docker-compose.yaml`**, facilitando la puesta en marcha con un solo comando. |
+| 4 | **Frontend (Streamlit + ngrok)** | - Streamlit expone una interfaz chat que:<br>  • Mantiene el historial de la conversación.<br>  • Permite reiniciar sesión.<br>- Para compartir la app públicamente sin exponer puertos se usa **ngrok**, que crea un túnel HTTPS temporal hacia la instancia de Streamlit. |
+| 5 | **Observabilidad (Langfuse)** | - **Langfuse** registra cada conversación de principio a fin bajo un mismo **ID de sesión**, de forma que todas las preguntas y respuestas quedan agrupadas.<br>- En su panel se pueden ver métricas como tiempo de respuesta, uso de tokens y los pasos internos que siguió el asistente, lo que facilita el seguimiento y la mejora continua. |
+
+> **Todo el stack corre en una única VM de Compute Engine** (entorno de desarrollo/experimentación) aprovechando la capa gratuita de Google Cloud Platform.
+
+
+
+
+<div align="center">
+  <img src="images/arquitectura_prod.png" alt="streamlit" width="700"/>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # Asistente Conversacional con RAG, LangGraph y Gemini 2.5 Flash
 
 Este proyecto implementa un asistente conversacional especializado que combina técnicas de Recuperación de Información (RAG), arquitectura modular con **LangGraph**, el modelo **Gemini Flash 2.5** de Google Vertex AI, y trazabilidad completa con **Langfuse**. Además, incluye una API desarrollada en **FastAPI** y una interfaz de conversación construida en **Streamlit**.
