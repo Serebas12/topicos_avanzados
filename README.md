@@ -22,9 +22,9 @@ Desarrollar, para la culminación del curso, un agente conversacional basado en 
 
 Desgloce SMART:
 
-- Specific (Específico): Desarrollar una prueba de concepto de un agente de inducción - acompañamiento para estudiantes de la Pontifica Universidad Javeriana cuya base de conocimiento sea el reglamento estudiantil.
+- Specific (Específico): Desarrollar una prueba de concepto de un agente de inducción - acompañamiento para estudiantes de la Pontificia Universidad Javeriana cuya base de conocimiento sea el reglamento estudiantil.
 
-- Measurable (Medible): Optaremos por retroalimentación de pares, donde buscaremos retroalimentación por medio de una breve encuesta del modelo de aceptación tecnologica (TAM).
+- Measurable (Medible): Optaremos por retroalimentación de pares, donde buscaremos retroalimentación por medio de una breve encuesta del modelo de aceptación tecnologica [TAM](https://forms.gle/Tq34KkcLefNNUYiK6 "link").
 
 - Achivable (Alcanzable): Capa gratuita de GCP para estudio.
 
@@ -278,3 +278,7 @@ Esta arquitectura proporciona escalabilidad automática, alta disponibilidad y u
 > 3. **Cuotas y alertamiento** – establecimiento de límites de consumo y notificaciones cuando se alcancen umbrales, especialmente si existe un presupuesto fijo asignado al proyecto o a los servicios en la nube.
 
 ## Demo
+
+<iframe width="560" height="315" src="https://youtu.be/Z40qBm5z0ns" frameborder="0" allowfullscreen></iframe>
+
+[Video](https://youtu.be/Z40qBm5z0ns "Video")
