@@ -54,13 +54,12 @@ La solución se diseñó y desplegó **íntegramente en Google Cloud Platform (G
 </div>
 
 
-| # | Componente | Descripción |
-|---|------------|-------------|
-| 1 | **Generación de embeddings** | 1. El PDF del Reglamento se **divide por páginas** y cada página se transforma a imagen.<br>2. Sobre cada imagen se ejecuta **Gemini 2.5 Flash (multimodal)** para extraer el texto.<br>3. El texto se normaliza y se genera la representación vectorial con el modelo **`text-multilingual-embedding-002`** de Vertex AI (768 dimensiones).<br>4. Todo el proceso se orquesta desde un **Notebook** alojado en la misma VM y al final se produce un archivo `embedding_manual.json`. |
-| 2 | **Base de conocimiento (OpenSearch)** | - Se despliega **OpenSearch** en un contenedor dentro de la máquina virtual.<br>- Se crea el índice `topicosindex` con dimensión **768**.<br>- El archivo `embedding_manual.json` se carga en **OpenSearch**, quedando cada página del reglamento como un documento con su vector. |
-| 3 | **Asistente (LangChain + LangGraph + FastAPI)** | - Implementado con **LangGraph**: dos nodos.<br>  • `search_node` → recupera los `5` documentos más relevantes desde OpenSearch.<br>  • `generate_node` → construye el system prompt y llama a **Gemini 2.5 Pro** para redactar la respuesta.<br>- El grafo se expone a través de un **backend FastAPI** (endpoint `POST /ask`).<br>- Todos los servicios (FastAPI, OpenSearch y Dashboards) se **orquestan mediante `docker-compose.yaml`**, facilitando la puesta en marcha con un solo comando. |
-| 4 | **Frontend (Streamlit + ngrok)** | - Streamlit expone una interfaz chat que:<br>  • Mantiene el historial de la conversación.<br>  • Permite reiniciar sesión.<br>- Para compartir la app públicamente sin exponer puertos se usa **ngrok**. |
-| 5 | **Observabilidad (Langfuse)** | - **Langfuse** registra cada conversación de principio a fin bajo un mismo **ID de sesión**, de forma que todas las preguntas y respuestas quedan agrupadas.<br>- En su panel se pueden ver métricas como tiempo de respuesta, uso de tokens y los pasos internos que siguió el asistente. |
+| Semana | Actividades                                                                                                                                                                                                                                     | Entregable Esperado                                                        |
+| ------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
+| 1      | - Definición y documentación del alcance del proyecto.<br>- Recopilación y preprocesamiento del reglamento estudiantil.<br>- Estudio inicial sobre RAG, embeddings y entorno GCP gratuito.<br>- Diseño de estrategia de embeddings.             | Documento de Alcance, Especificaciones y Estrategia de Embeddings definida |
+| 2      | - Creación y validación técnica de embeddings.<br>- Configuración del entorno gratuito GCP.<br>- Implementación inicial del agente conversacional (RAG).<br>- Desarrollo de conexión básica entre agente y embeddings.                          | Embeddings almacenados y prototipo básico funcional del agente             |
+| 3      | - Refinamiento del agente RAG según pruebas internas.<br>- Desarrollo de interfaz amigable para consultas (e.g., Streamlit o Google Colab).<br>- Pruebas internas finales y validación técnica.<br>- Documentación técnica final del prototipo. | Prototipo validado con interfaz y documentación técnica final              |
+
 
 > **Nota** los modelos **Gemini 2.5 Flash** y **Gemini 2.5 Pro** se encuentran en preview.
 
