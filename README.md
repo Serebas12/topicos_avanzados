@@ -32,14 +32,12 @@ Desgloce SMART:
 
 - Time-bound (Tiempo): Se dispone del cronograma de esta manera:
 
-| Semana | Actividades                                                                                                                                                                      | Entregable Esperado                        |
-| ------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------ |
-| 1      | - Definición y documentación del alcance del proyecto.<br>- Recopilación del reglamento estudiantil original.<br>- Estudio inicial sobre RAG, embeddings y entorno GCP gratuito. | Documento de Alcance y Especificaciones    |
-| 2      | - Preparación inicial del reglamento estudiantil (preprocesamiento).<br>- Diseño de estrategia de embeddings (elección de modelo, técnica de indexación, etc.).                  | Estrategia de Embeddings definida          |
-| 3      | - Creación y validación técnica de embeddings.<br>- Configuración inicial del entorno gratuito GCP para embeddings y almacenamiento de conocimiento.                             | Embeddings almacenados en GCP              |
-| 4      | - Implementación inicial del agente conversacional (RAG).<br>- Desarrollo de conexión básica entre agente y embeddings almacenados en GCP.                                       | Prototipo básico funcional del agente      |
-| 5      | - Refinamiento del agente RAG según primeras pruebas internas.<br>- Desarrollo básico de una interfaz amigable para consultas rápidas (Streamlit).          | Prototipo refinado con interfaz básica     |
-| 6      | - Pruebas internas finales y validación técnica completa del agente.<br>- Documentación técnica final del prototipo.                                                             | Prototipo validado y documentación técnica |
+| Semana | Actividades                                                                                                                                                                                                                                     | Entregable Esperado                                                        |
+| ------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
+| 1      | - Definición y documentación del alcance del proyecto.<br>- Recopilación y preprocesamiento del reglamento estudiantil.<br>- Estudio inicial sobre RAG, embeddings y entorno GCP gratuito.<br>- Diseño de estrategia de embeddings.             | Documento de Alcance, Especificaciones y Estrategia de Embeddings definida |
+| 2      | - Creación y validación técnica de embeddings.<br>- Configuración del entorno gratuito GCP.<br>- Implementación inicial del agente conversacional (RAG).<br>- Desarrollo de conexión básica entre agente y embeddings.                          | Embeddings almacenados y prototipo básico funcional del agente             |
+| 3      | - Refinamiento del agente RAG según pruebas internas.<br>- Desarrollo de interfaz amigable para consultas (e.g., Streamlit o Google Colab).<br>- Pruebas internas finales y validación técnica.<br>- Documentación técnica final del prototipo. | Prototipo validado con interfaz y documentación técnica final              |
+                                                     | Prototipo validado y documentación técnica |
 
 
 ## Visión general y arquitectura del asistente de consultas del Reglamento Estudiantil PUJ
