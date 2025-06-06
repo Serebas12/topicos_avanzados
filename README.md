@@ -24,13 +24,13 @@ La solución se diseñó y desplegó **íntegramente en Google Cloud Platform (G
 
 | # | Componente | Descripción |
 |---|------------|-------------|
-| 1 | **Generación de embeddings** | 1. El PDF del Reglamento se **divide por páginas** y cada página se transforma a imagen.<br>2. Sobre cada imagen se ejecuta **Gemini 2.5 Flash (multimodal)** para extraer el texto con alta fidelidad.<br>3. El texto se normaliza y se genera la representación vectorial con el modelo **`text-multilingual-embedding-002`** de Vertex AI (768 dim).<br>4. Todo el proceso se orquesta desde un **Notebook** alojado en la misma VM y al final se produce un archivo `embedding_manual.json`. |
-| 2 | **Base de conocimiento (OpenSearch)** | - Se despliega **OpenSearch** en un contenedor dentro de la VM.<br>- Se crea el índice `topicosindex` con soporte **KNN** y dimensión **768**.<br>- El archivo `embedding_manual.json` se carga vía API `_bulk`, quedando cada página del reglamento como un documento con su vector. |
-| 3 | **Asistente (LangChain + LangGraph + FastAPI)** | - Implementado con **LangGraph**: dos nodos.<br>  • `search_node` → recupera los `k` documentos más relevantes desde OpenSearch.<br>  • `generate_node` → construye el mensaje de sistema y llama a **Gemini 2.5 Pro** para redactar la respuesta.<br>- Se eligió Gemini 2.5 Pro porque está en *preview* (sin coste) y ofrece mayor capacidad de razonamiento.<br>- El grafo se expone a través de un **backend FastAPI** (endpoint `POST /ask`).<br>- Todo el stack (FastAPI, OpenSearch y Dashboards) se **orquesta mediante `docker-compose.yaml`**, facilitando la puesta en marcha con un solo comando. |
-| 4 | **Frontend (Streamlit + ngrok)** | - Streamlit expone una interfaz chat que:<br>  • Mantiene el historial de la conversación.<br>  • Permite reiniciar sesión.<br>- Para compartir la app públicamente sin exponer puertos se usa **ngrok**, que crea un túnel HTTPS temporal hacia la instancia de Streamlit. |
-| 5 | **Observabilidad (Langfuse)** | - **Langfuse** registra cada conversación de principio a fin bajo un mismo **ID de sesión**, de forma que todas las preguntas y respuestas quedan agrupadas.<br>- En su panel se pueden ver métricas como tiempo de respuesta, uso de tokens y los pasos internos que siguió el asistente, lo que facilita el seguimiento y la mejora continua. |
+| 1 | **Generación de embeddings** | 1. El PDF del Reglamento se **divide por páginas** y cada página se transforma a imagen.<br>2. Sobre cada imagen se ejecuta **Gemini 2.5 Flash (multimodal)** para extraer el texto.<br>3. El texto se normaliza y se genera la representación vectorial con el modelo **`text-multilingual-embedding-002`** de Vertex AI (768 dimensiones).<br>4. Todo el proceso se orquesta desde un **Notebook** alojado en la misma VM y al final se produce un archivo `embedding_manual.json`. |
+| 2 | **Base de conocimiento (OpenSearch)** | - Se despliega **OpenSearch** en un contenedor dentro de la máquina virtual.<br>- Se crea el índice `topicosindex` con dimensión **768**.<br>- El archivo `embedding_manual.json` se carga en **OpenSearch**, quedando cada página del reglamento como un documento con su vector. |
+| 3 | **Asistente (LangChain + LangGraph + FastAPI)** | - Implementado con **LangGraph**: dos nodos.<br>  • `search_node` → recupera los `5` documentos más relevantes desde OpenSearch.<br>  • `generate_node` → construye el system prompt y llama a **Gemini 2.5 Pro** para redactar la respuesta.<br>- El grafo se expone a través de un **backend FastAPI** (endpoint `POST /ask`).<br>- Todos los servicios (FastAPI, OpenSearch y Dashboards) se **orquestan mediante `docker-compose.yaml`**, facilitando la puesta en marcha con un solo comando. |
+| 4 | **Frontend (Streamlit + ngrok)** | - Streamlit expone una interfaz chat que:<br>  • Mantiene el historial de la conversación.<br>  • Permite reiniciar sesión.<br>- Para compartir la app públicamente sin exponer puertos se usa **ngrok**. |
+| 5 | **Observabilidad (Langfuse)** | - **Langfuse** registra cada conversación de principio a fin bajo un mismo **ID de sesión**, de forma que todas las preguntas y respuestas quedan agrupadas.<br>- En su panel se pueden ver métricas como tiempo de respuesta, uso de tokens y los pasos internos que siguió el asistente. |
 
-> **Todo el stack corre en una única VM de Compute Engine** (entorno de desarrollo/experimentación) aprovechando la capa gratuita de Google Cloud Platform.
+> **Nota** los modelos **Gemini 2.5 Flash** y **Gemini 2.5 Pro** se encuentran en preview.
 
 
 ## Estructura del repositorio y guía de ejecución
@@ -47,7 +47,7 @@ TOPICOS_AVANZADOS/
 │ ├── invoker.py            # Clase que invoca el grafo y gestiona Langfuse
 │ └── nodes.py              # Implementación de los nodos (search / generate)
 │
-├── app/ # Backend FastAPI + Dockerfile
+├── app/                    # Backend FastAPI + Dockerfile
 │ ├── Dockerfile            # Imagen para FastAPI + dependencias
 │ ├── main.py               # Endpoints (POST /ask)
 │ └── requirements.txt      # Librerías Python para FastAPI
@@ -55,7 +55,7 @@ TOPICOS_AVANZADOS/
 ├── embeddings/             # Insumos y notebook para generar embeddings
 │ ├── Proceso_embeddings.ipynb
 │ ├── reglamento-de-estudiantes-universidad-javeriana.pdf
-│ └── imagenes/             # Páginas del PDF rasterizadas
+│ └── imagenes/             # Páginas del PDF
 │
 ├── images/                 # Recursos gráficos (diagramas, etc.)
 │
@@ -75,7 +75,7 @@ A continuación se detallan los requisitos previos y los pasos necesarios para d
 
 | Requisito / Herramienta | Detalle o versión mínima recomendada |
 |-------------------------|--------------------------------------|
-| **Cuenta de Google Cloud** | Proyecto activo con acceso a **Vertex AI** (modelos Gemini 2.5 Pro/Flash y Vector Search). |
+| **Cuenta de Google Cloud** | Proyecto activo con acceso a **Vertex AI** (modelos Gemini 2.5 Pro/Flash, Vector Search y modelo de embeddings). |
 | **Cuenta de Langfuse**  | Espacio de trabajo (public / secret keys) para registrar las trazas de la aplicación. |
 | **Docker**             | 24.x |
 | **Docker Compose**     | 1.29.x |
@@ -84,13 +84,13 @@ A continuación se detallan los requisitos previos y los pasos necesarios para d
 Una vez cubiertos estos prerrequisitos, puede procederse al despliegue del asistente virtual.
 
 
-1. Antes de iniciar OpenSearch es necesario ampliar el límite de memoria de mapeo:
+1. Antes de iniciar OpenSearch es necesario ampliar el límite de memoria:
 
 ```bash
 sudo sysctl -w vm.max_map_count=262144
 ```
 
-2. Desde la raíz del repositorio, ejecute el siguiente comando para **construir e iniciar** todos los servicios (OpenSearch, Dashboards y FastAPI) mediante Docker Compose:
+2. Desde la raíz del repositorio, se debe ejecutar el siguiente comando para **construir e iniciar** todos los servicios (OpenSearch, Dashboards y FastAPI) mediante Docker Compose:
 
 ```bash
 docker-compose up --build -d
@@ -104,7 +104,7 @@ Una vez finalizado, los servicios estarán disponibles en:
 
 
 
-3. Con OpenSearch en ejecución, cree el índice **`topicosindex`** con soporte para búsqueda vectorial (KNN) ejecutando:
+3. Con OpenSearch en ejecución, se crea el índice **`topicosindex`** ejecutando:
 
 ```bash
 curl -X PUT "https://localhost:9200/topicosindex" \
@@ -190,7 +190,7 @@ ngrok http --url=<domain> 8501
 
 ## Consideraciones
 
-El despliegue descrito corresponde a un **entorno de desarrollo (Proof of Concept)**. Antes de llevar la solución a producción, se recomienda que usted tenga en cuenta los siguientes aspectos:
+El despliegue descrito corresponde a un **entorno de desarrollo de una PoC**. Antes de llevar la solución a producción, se recomienda que usted tenga en cuenta los siguientes aspectos:
 
 1. **Infraestructura limitada y no escalable**  
    Al ejecutarse en una única instancia de Compute Engine, la arquitectura carece de alta disponibilidad y elasticidad. Ante picos de carga, el servicio podría experimentar latencias elevadas o interrupciones.
@@ -199,7 +199,7 @@ El despliegue descrito corresponde a un **entorno de desarrollo (Proof of Concep
    La PoC utiliza la capa gratuita de GCP. Para un entorno productivo se requiere una suscripción que cubra los recursos consumidos y el acceso a servicios gestionados (Vertex AI, Cloud Logging, etc.).
 
 3. **Modelos en modo *preview***  
-   Gemini 2.5 Pro se emplea en modalidad *preview* — útil para experimentación, pero no recomendado en producción debido a límites de uso y ausencia de SLA. Debería sustituirse por un modelo estable y con soporte.
+   Gemini 2.5 Pro/Flash se emplean en modalidad *preview*, útil para experimentación, pero no recomendado en producción debido a límites de uso y ausencia de SLA. Debería sustituirse por un modelo estable y con soporte.
 
 4. **Cobertura de pruebas**  
    El prototipo no incluye pruebas unitarias, de integración ni de carga. Antes de la liberación se deben incorporar suites de pruebas alineadas con las políticas de calidad de la organización.
@@ -208,13 +208,13 @@ El despliegue descrito corresponde a un **entorno de desarrollo (Proof of Concep
    Si la información consultada es sensible, resulta obligatorio aplicar controles de seguridad (cifrado en reposo y en tránsito, control de acceso, registro de auditoría, etc.) conforme a la normativa interna de la entidad.
 
 6. **Observabilidad ampliada**  
-   Langfuse ofrece trazabilidad a nivel de aplicación; sin embargo, para operación continua se aconseja integrar métricas de infraestructura (CPU, memoria, I/O) y alertas en un sistema de monitoreo centralizado (Cloud Monitoring, Prometheus, etc.).
+   Langfuse ofrece trazabilidad a nivel del asistente; sin embargo, para operación continua se aconseja integrar métricas de infraestructura (CPU, memoria, I/O) y alertas en un sistema de monitoreo centralizado (Cloud Monitoring, Prometheus, etc.).
 
 Estas consideraciones deben evaluarse y ajustarse de acuerdo con los estándares de Gobierno de TI vigentes en su organización.
 
 ## Propuesta de arquitectura productiva en Google Cloud Platform
 
-Con el fin de llevar la solución a un entorno productivo, se recomienda la arquitectura ilustrada en el diagrama precedente. Esta propuesta amplía la PoC y añade robustez, escalabilidad y buenas prácticas de gobernanza:
+Con el fin de llevar la solución a un entorno productivo, se recomienda la arquitectura del siguiente diagrama. Esta propuesta amplía la PoC y añade robustez, escalabilidad y buenas prácticas de gobernanza:
 
 <div align="center">
   <img src="images/arquitectura_prod.png" alt="streamlit" width="1000"/>
@@ -226,7 +226,7 @@ Con el fin de llevar la solución a un entorno productivo, se recomienda la arqu
    - Un mensaje de **Pub/Sub** actúa como disparador para **Cloud Run (Embeddings)**, servicio que:  
      1. Extrae el texto con **Gemini 2.5 Flash** (multimodal).  
      2. Genera embeddings mediante **`text-multilingual-embedding-002`**.  
-     3. Actualiza la colección en **Vertex AI Vector Search**.  
+     3. Actualiza la información en **Vertex AI Vector Search**.  
 
 2. **Consumo del asistente**  
    - La interfaz de usuario se implementa en **Apps Script**, facilitando la integración con entornos Google Workspace.  
@@ -248,3 +248,5 @@ Esta arquitectura proporciona escalabilidad automática, alta disponibilidad y u
 > 1. **Seguridad** – definición de autenticación/ autorización para las API y cifrado de datos en reposo y en tránsito conforme a los requisitos corporativos.  
 > 2. **Infraestructura como código (IaC)** – uso de herramientas como Terraform para garantizar despliegues reproducibles y auditables.  
 > 3. **Cuotas y alertamiento** – establecimiento de límites de consumo y notificaciones cuando se alcancen umbrales, especialmente si existe un presupuesto fijo asignado al proyecto o a los servicios en la nube.
+
+## Demo
