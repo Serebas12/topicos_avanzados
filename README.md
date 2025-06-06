@@ -279,6 +279,4 @@ Esta arquitectura proporciona escalabilidad automática, alta disponibilidad y u
 
 ## Demo
 
-<iframe width="560" height="315" src="https://youtu.be/Z40qBm5z0ns" frameborder="0" allowfullscreen></iframe>
-
 [Video](https://youtu.be/Z40qBm5z0ns "Video")
