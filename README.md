@@ -16,7 +16,7 @@ Con frecuencia, la divulgación del contenido del reglamento entre estudiantes p
 
 ##  Objetivo 
 
-Desarrollar, para la culminación del curso, un agente conversacional basado en la técnica RAG utilizando embeddings del [reglamento estudiantil](https://www.javeriana.edu.co/institucional/reglamento-de-estudiantes "Reglamento"), empleando herramientas accesibles (versión gratuita de GCP para aprendizaje), que permita responder de manera efectiva a preguntas con errores ortográficos y que sea capaz de limitar su alcance al contenido de su base de conocimiento (reglamento estudiantil), advirtiendo al estudiante sobre estos límites. De forma cuantitativa, se realizará una prueba de concepto con pares (estudiantes del curso) mediante una breve encuesta de aceptación tecnológica [reglamento estudiantil](https://www.javeriana.edu.co/institucional/reglamento-de-estudiantes "Reglamento"), con lo cual se obtendrá la retroalimentación necesaria sobre la versión 1 antes de considerar su puesta en producción como proyecto tecnológico.
+Desarrollar, para la culminación del curso, un agente conversacional basado en la técnica RAG utilizando embeddings del [reglamento estudiantil](https://www.javeriana.edu.co/institucional/reglamento-de-estudiantes "Reglamento"), empleando herramientas accesibles (versión gratuita de GCP para aprendizaje), que permita responder de manera efectiva a preguntas con errores ortográficos y que sea capaz de limitar su alcance al contenido de su base de conocimiento (reglamento estudiantil), advirtiendo al estudiante sobre estos límites. De forma cuantitativa, se realizará una prueba de concepto con pares (estudiantes del curso) mediante una breve encuesta del modelo de aceptación tecnológica [TAM](https://www.sciencedirect.com/topics/social-sciences/technology-acceptance-model "Bibliografía"), con lo cual se obtendrá la retroalimentación necesaria sobre la versión 1 antes de considerar su puesta en producción como proyecto tecnológico.
 
 **Nota:** Debido a las características del desarrollo, se compartirá con los compañeros del curso el repositorio y el enlace a la encuesta, para que puedan proporcionarnos su retroalimentación.
 
@@ -24,7 +24,7 @@ Desgloce SMART:
 
 - Specific (Específico): Desarrollar una prueba de concepto de un agente de inducción - acompañamiento para estudiantes de la Pontifica Universidad Javeriana cuya base de conocimiento sea el reglamento estudiantil.
 
-- Measurable (Medible): Optaremos por retroalimentación de pares, donde buscaremos retroalimentación por medio de una breve encuesta de aceptación tecnologica (TAM).
+- Measurable (Medible): Optaremos por retroalimentación de pares, donde buscaremos retroalimentación por medio de una breve encuesta del modelo de aceptación tecnologica (TAM).
 
 - Achivable (Alcanzable): Capa gratuita de GCP para estudio.
 
