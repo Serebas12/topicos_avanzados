@@ -38,7 +38,7 @@ Desgloce SMART:
 | 2      | - Preparación inicial del reglamento estudiantil (preprocesamiento).<br>- Diseño de estrategia de embeddings (elección de modelo, técnica de indexación, etc.).                  | Estrategia de Embeddings definida          |
 | 3      | - Creación y validación técnica de embeddings.<br>- Configuración inicial del entorno gratuito GCP para embeddings y almacenamiento de conocimiento.                             | Embeddings almacenados en GCP              |
 | 4      | - Implementación inicial del agente conversacional (RAG).<br>- Desarrollo de conexión básica entre agente y embeddings almacenados en GCP.                                       | Prototipo básico funcional del agente      |
-| 5      | - Refinamiento del agente RAG según primeras pruebas internas.<br>- Desarrollo básico de una interfaz amigable para consultas rápidas (e.g., Streamlit o Google Colab).          | Prototipo refinado con interfaz básica     |
+| 5      | - Refinamiento del agente RAG según primeras pruebas internas.<br>- Desarrollo básico de una interfaz amigable para consultas rápidas (Streamlit).          | Prototipo refinado con interfaz básica     |
 | 6      | - Pruebas internas finales y validación técnica completa del agente.<br>- Documentación técnica final del prototipo.                                                             | Prototipo validado y documentación técnica |
 
 
