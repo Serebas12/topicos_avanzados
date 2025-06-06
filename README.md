@@ -8,11 +8,43 @@
 - **Jair Sebastián Saavedra Alvarado**  
   <saavedra.jairs@javeriana.edu.co>
 
-## Visión general y arquitectura del asistente de consultas del Reglamento Estudiantil PUJ
+##  Introducción 
 
-Este proyecto implementa un **asistente de inteligencia artificial** cuyo propósito es facilitar a los estudiantes de la **Pontificia Universidad Javeriana** la consulta ágil y precisa del **Reglamento Estudiantil**. Debido a que los estudiantes, especialmente los nuevos, carecen del conocimiento sobre el contenido de este reglamento, resulta indispensable su difusión desde el inicio de la vida académica. Este documento contiene información clave sobre los derechos y deberes estudiantiles, los lineamientos a seguir en caso de conflicto e incluso aspectos importantes que los estudiantes podrían desconocer sobre sus propias obligaciones.
+Debido a que los estudiantes, especialmente los nuevos, carecen del conocimiento sobre el contenido de este reglamento, resulta indispensable su difusión desde el inicio de la vida académica. Este documento contiene información clave sobre los derechos y deberes estudiantiles, los lineamientos a seguir en caso de conflicto e incluso aspectos importantes que los estudiantes podrían desconocer sobre sus propios derechos y deberes.
 
 Con frecuencia, la divulgación del contenido del reglamento entre estudiantes puede ocurrir en forma similar a un "teléfono roto", generando malinterpretaciones. Además, algunos estudiantes consideran innecesaria su lectura para situaciones puntuales en su vida universitaria. Por tanto, nuestra solución proporciona un mecanismo amigable que permite a los estudiantes, sin importar en qué etapa de su ciclo de vida académico se encuentren, acceder a esta información de manera ágil y oportuna. Se trata de un asistente que ofrece información directa y precisa del reglamento desde su base de conocimiento, facilitando así un acceso más eficiente a los derechos y deberes para todos los estudiantes.
+
+##  Objetivo 
+
+Desarrollar, para la culminación del curso, un agente conversacional basado en la técnica RAG utilizando embeddings del [reglamento estudiantil](https://www.javeriana.edu.co/institucional/reglamento-de-estudiantes "Reglamento"), empleando herramientas accesibles (versión gratuita de GCP para aprendizaje), que permita responder de manera efectiva a preguntas con errores ortográficos y que sea capaz de limitar su alcance al contenido de su base de conocimiento (reglamento estudiantil), advirtiendo al estudiante sobre estos límites. De forma cuantitativa, se realizará una prueba de concepto con pares (estudiantes del curso) mediante una breve encuesta de aceptación tecnológica [reglamento estudiantil](https://www.javeriana.edu.co/institucional/reglamento-de-estudiantes "Reglamento"), con lo cual se obtendrá la retroalimentación necesaria sobre la versión 1 antes de considerar su puesta en producción como proyecto tecnológico.
+
+**Nota:** Debido a las características del desarrollo, se compartirá con los compañeros del curso el repositorio y el enlace a la encuesta, para que puedan proporcionarnos su retroalimentación.
+
+Desgloce SMART:
+
+- Specific (Específico): Desarrollar una prueba de concepto de un agente de inducción - acompañamiento para estudiantes de la Pontifica Universidad Javeriana cuya base de conocimiento sea el reglamento estudiantil.
+
+- Measurable (Medible): Optaremos por retroalimentación de pares, donde buscaremos retroalimentación por medio de una breve encuesta de aceptación tecnologica (TAM).
+
+- Achivable (Alcanzable): Capa gratuita de GCP para estudio.
+
+- Relevant (Relevante): Este proyecto sugiere un camino para permitir a los estudiantes a conocer de manera más fácil y sencilla el contenido del reglamento estudiantil 
+
+- Time-bound (Tiempo): Se dispone del cronograma de esta manera:
+
+| Semana | Actividades                                                                                                                                                                      | Entregable Esperado                        |
+| ------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------ |
+| 1      | - Definición y documentación del alcance del proyecto.<br>- Recopilación del reglamento estudiantil original.<br>- Estudio inicial sobre RAG, embeddings y entorno GCP gratuito. | Documento de Alcance y Especificaciones    |
+| 2      | - Preparación inicial del reglamento estudiantil (preprocesamiento).<br>- Diseño de estrategia de embeddings (elección de modelo, técnica de indexación, etc.).                  | Estrategia de Embeddings definida          |
+| 3      | - Creación y validación técnica de embeddings.<br>- Configuración inicial del entorno gratuito GCP para embeddings y almacenamiento de conocimiento.                             | Embeddings almacenados en GCP              |
+| 4      | - Implementación inicial del agente conversacional (RAG).<br>- Desarrollo de conexión básica entre agente y embeddings almacenados en GCP.                                       | Prototipo básico funcional del agente      |
+| 5      | - Refinamiento del agente RAG según primeras pruebas internas.<br>- Desarrollo básico de una interfaz amigable para consultas rápidas (e.g., Streamlit o Google Colab).          | Prototipo refinado con interfaz básica     |
+| 6      | - Pruebas internas finales y validación técnica completa del agente.<br>- Documentación técnica final del prototipo.                                                             | Prototipo validado y documentación técnica |
+
+
+## Visión general y arquitectura del asistente de consultas del Reglamento Estudiantil PUJ
+
+Este proyecto implementa un **asistente de inteligencia artificial** cuyo propósito es facilitar a los estudiantes de la **Pontificia Universidad Javeriana** la consulta ágil y precisa del **Reglamento Estudiantil**. 
 
 La solución se diseñó y desplegó **íntegramente en Google Cloud Platform (GCP)**, aprovechando los servicios incluidos en la capa gratuita. Para habilitar respuestas contextuales, se construyó una **base de conocimiento** donde **cada página del reglamento** se trata como un documento independiente. Esa granularidad permite aplicar la técnica de **Retrieval-Augmented Generation (RAG)**, garantizando que el asistente recupere los fragmentos relevantes del reglamento y genere respuestas fundamentadas en el texto oficial. Adicionalmente, para el desarrollo del proyecto se utilizo la siguiente arquitectura:
 
