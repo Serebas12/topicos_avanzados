@@ -8,6 +8,8 @@
 - **Jair Sebastián Saavedra Alvarado**  
   <saavedra.jairs@javeriana.edu.co>
 
+[Enlace del Repositorio](https://github.com/Serebas12/topicos_avanzados.git "Repositorio GitHub")
+
 ##  Introducción 
 
 Debido a que los estudiantes, especialmente los nuevos, carecen del conocimiento sobre el contenido de este reglamento, resulta indispensable su difusión desde el inicio de la vida académica. Este documento contiene información clave sobre los derechos y deberes estudiantiles, los lineamientos a seguir en caso de conflicto e incluso aspectos importantes que los estudiantes podrían desconocer sobre sus propios derechos y deberes.
