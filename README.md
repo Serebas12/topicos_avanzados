@@ -37,7 +37,6 @@ Desgloce SMART:
 | 1      | - Definición y documentación del alcance del proyecto.<br>- Recopilación y preprocesamiento del reglamento estudiantil.<br>- Estudio inicial sobre RAG, embeddings y entorno GCP gratuito.<br>- Diseño de estrategia de embeddings.             | Documento de Alcance, Especificaciones y Estrategia de Embeddings definida |
 | 2      | - Creación y validación técnica de embeddings.<br>- Configuración del entorno gratuito GCP.<br>- Implementación inicial del agente conversacional (RAG).<br>- Desarrollo de conexión básica entre agente y embeddings.                          | Embeddings almacenados y prototipo básico funcional del agente             |
 | 3      | - Refinamiento del agente RAG según pruebas internas.<br>- Desarrollo de interfaz amigable para consultas (e.g., Streamlit o Google Colab).<br>- Pruebas internas finales y validación técnica.<br>- Documentación técnica final del prototipo. | Prototipo validado con interfaz y documentación técnica final              |
-                                                     | Prototipo validado y documentación técnica |
 
 
 ## Visión general y arquitectura del asistente de consultas del Reglamento Estudiantil PUJ
