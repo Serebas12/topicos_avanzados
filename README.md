@@ -59,7 +59,7 @@ La solución se diseñó y desplegó **íntegramente en Google Cloud Platform (G
 | 3      | - Refinamiento del agente RAG según pruebas internas.<br>- Desarrollo de interfaz amigable para consultas (e.g., Streamlit o Google Colab).<br>- Pruebas internas finales y validación técnica.<br>- Documentación técnica final del prototipo. | Prototipo validado con interfaz y documentación técnica final              |
 
 
-> **Nota** los modelos **Gemini 2.5 Flash** y **Gemini 2.5 Pro** se encuentran en preview.
+**Nota** los modelos **Gemini 2.5 Flash** y **Gemini 2.5 Pro** se encuentran en preview.
 
 
 ## Estructura del repositorio y guía de ejecución
