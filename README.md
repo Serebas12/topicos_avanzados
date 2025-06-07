@@ -237,8 +237,9 @@ El despliegue descrito corresponde a un **entorno de desarrollo de una PoC**. An
 5. **Políticas de seguridad y protección de datos**  
    Si la información consultada es sensible, resulta obligatorio aplicar controles de seguridad (cifrado en reposo y en tránsito, control de acceso, registro de auditoría, etc.) conforme a la normativa interna de la entidad.
 
-6. **Observabilidad ampliada**  
-   Langfuse ofrece trazabilidad a nivel del asistente; sin embargo, para operación continua se aconseja integrar métricas de infraestructura (CPU, memoria, I/O) y alertas en un sistema de monitoreo centralizado (Cloud Monitoring, Prometheus, etc.).
+6. **Monitoreo**  
+   Langfuse ofrece trazabilidad a nivel del asistente lo cual es suficiente para ambientes PoC, sin embargo, en caso de que sea requerido a nivel de organización se puede llegar a plantear un esquema de observabilidad que mida infraestructura y genere alertas de monitoreo centralizado (Cloud Monitoring, Prometheus, etc.), todo sujeto a la necesidad del alcance del proyecto.
+  
 
 Estas consideraciones deben evaluarse y ajustarse de acuerdo con los estándares de Gobierno de TI vigentes en su organización.
 
